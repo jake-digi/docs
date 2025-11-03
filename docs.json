@@ -37,6 +37,7 @@
             "group": "Introduction",
             "pages": [
               "api-reference/introduction",
+              "api-reference/complete-workflow",
               "api-reference/health"
             ]
           },

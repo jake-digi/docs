@@ -1,0 +1,329 @@
+---
+title: "Complete Workflow: Start to Finish"
+description: "Step-by-step guide to creating instances, groups, blocks, rooms, and participants"
+---
+
+## Complete Workflow Tutorial
+
+This guide walks you through creating a complete camp setup from scratch: instance, groups, blocks, rooms, and participants.
+
+## Prerequisites
+
+- API key or Firebase authentication token
+- Base URL: `https://api.checkpoint.b-digital.uk`
+
+## Step 1: Create an Instance
+
+First, create a new camp instance (session).
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/instances \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Winter Camp 2025",
+    "description": "Annual winter camp session",
+    "status": "upcoming",
+    "start_date": "2025-12-15",
+    "end_date": "2025-12-22",
+    "location": "Camp Location Name"
+  }'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "instance_id_123",
+    "name": "Winter Camp 2025",
+    "status": "upcoming",
+    "start_date": "2025-12-15T00:00:00.000Z",
+    "end_date": "2025-12-22T00:00:00.000Z",
+    "created_at": "2025-11-03T22:50:33.234Z"
+  }
+}
+```
+
+**Save the `id` - you'll need it for all subsequent steps.**
+
+## Step 2: Create Supergroups
+
+Create the main groups for your camp.
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/groups/supergroups \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Junior Camp",
+    "instance_id": "instance_id_123",
+    "description": "Group for junior campers",
+    "notifications": true
+  }'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "supergroup_id_456",
+    "name": "Junior Camp",
+    "instance_id": "instance_id_123",
+    "created_at": "2025-11-03T22:50:33.234Z"
+  }
+}
+```
+
+**Repeat for additional supergroups if needed. Save the `id` for Step 3.**
+
+## Step 3: Create Subgroups
+
+Create subgroups within each supergroup.
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/groups/subgroups \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Dragon",
+    "instance_id": "instance_id_123",
+    "parent_supergroup_id": "supergroup_id_456",
+    "description": "Dragon subgroup"
+  }'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "subgroup_id_789",
+    "name": "Dragon",
+    "parent_supergroup_id": "supergroup_id_456",
+    "instance_id": "instance_id_123",
+    "created_at": "2025-11-03T22:50:33.234Z"
+  }
+}
+```
+
+**Save the `id` - you'll need it when creating participants.**
+
+## Step 4: Create Blocks
+
+Create accommodation blocks for your camp.
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/blocks \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Block A",
+    "instance_id": "instance_id_123",
+    "description": "Main accommodation block"
+  }'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "block_id_101",
+    "name": "Block A",
+    "instance_id": "instance_id_123",
+    "created_at": "2025-11-03T22:50:33.234Z"
+  }
+}
+```
+
+**Save the `id` - you'll need it for Step 5.**
+
+## Step 5: Create Rooms
+
+Create rooms within each block.
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/rooms \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "room_number": "101",
+    "block_id": "block_id_101",
+    "instance_id": "instance_id_123",
+    "name": "Room 101",
+    "capacity": 4
+  }'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "room_id_202",
+    "room_number": "101",
+    "block_id": "block_id_101",
+    "instance_id": "instance_id_123",
+    "capacity": 4,
+    "created_at": "2025-11-03T22:50:33.234Z"
+  }
+}
+```
+
+**Save the `id` - you'll need it when creating participants.**
+
+## Step 6: Create Participants
+
+Now create participants and assign them to groups and rooms.
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/participants \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "PARTICIPANT_001",
+    "instance_id": "instance_id_123",
+    "first_name": "John",
+    "surname": "Smith",
+    "gender": "Male",
+    "date_of_birth": "2010-05-15",
+    "school_year": "8",
+    "rank": "Unders",
+    "status": "active",
+    "unit_name": "UK",
+    "school_institute": "Example School",
+    "arrival_date": "2025-12-15",
+    "departure_date": "2025-12-22",
+    "super_group_id": "supergroup_id_456",
+    "sub_group_id": "subgroup_id_789",
+    "block_id": "block_id_101",
+    "room_id": "room_id_202",
+    "room_number": "101",
+    "photo_link": "photo_001"
+  }'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "id": "PARTICIPANT_001",
+    "user_id": "PARTICIPANT_001",
+    "first_name": "John",
+    "surname": "Smith",
+    "full_name": "John Smith",
+    "status": "active",
+    "instance_id": "instance_id_123",
+    "super_group_id": "supergroup_id_456",
+    "sub_group_id": "subgroup_id_789",
+    "block_id": "block_id_101",
+    "room_id": "room_id_202",
+    "created_at": "2025-11-03T22:50:33.234Z"
+  }
+}
+```
+
+## Step 7: Verify Your Setup
+
+### Get Instance Details
+
+```bash
+curl -X GET https://api.checkpoint.b-digital.uk/api/v1/instances/instance_id_123 \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
+This returns instance details with statistics including:
+- Number of participants
+- Number of groups
+- Number of blocks
+- Number of rooms
+
+### List All Participants
+
+```bash
+curl -X GET "https://api.checkpoint.b-digital.uk/api/v1/participants?instance_id=instance_id_123" \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
+### List Groups
+
+```bash
+curl -X GET "https://api.checkpoint.b-digital.uk/api/v1/groups/supergroups?instance_id=instance_id_123" \
+  -H "X-API-Key: YOUR_API_KEY"
+
+curl -X GET "https://api.checkpoint.b-digital.uk/api/v1/groups/subgroups?instance_id=instance_id_123" \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
+### List Blocks and Rooms
+
+```bash
+curl -X GET "https://api.checkpoint.b-digital.uk/api/v1/blocks?instance_id=instance_id_123" \
+  -H "X-API-Key: YOUR_API_KEY"
+
+curl -X GET "https://api.checkpoint.b-digital.uk/api/v1/rooms?instance_id=instance_id_123&block_id=block_id_101" \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
+## Quick Reference: ID Chain
+
+When creating a complete setup, you'll need these IDs in order:
+
+1. **Instance ID** → Used for all resources
+2. **Supergroup ID** → Used when creating subgroups and participants
+3. **Subgroup ID** → Used when creating participants
+4. **Block ID** → Used when creating rooms and participants
+5. **Room ID** → Used when creating participants
+
+## Common Patterns
+
+### Creating Multiple Resources
+
+**Bulk create supergroups:**
+```bash
+for name in "Junior Camp" "Senior Camp" "Leaders"; do
+  curl -X POST https://api.checkpoint.b-digital.uk/api/v1/groups/supergroups \
+    -H "X-API-Key: YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{\"name\": \"$name\", \"instance_id\": \"instance_id_123\"}"
+done
+```
+
+**Bulk create rooms:**
+```bash
+for room_num in 101 102 103 104; do
+  curl -X POST https://api.checkpoint.b-digital.uk/api/v1/rooms \
+    -H "X-API-Key: YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{\"room_number\": \"$room_num\", \"block_id\": \"block_id_101\", \"instance_id\": \"instance_id_123\"}"
+done
+```
+
+## Validation Rules to Remember
+
+- **Subgroups** must belong to a parent supergroup
+- **Rooms** must belong to a block
+- **Participant** `user_id` must be unique within the same instance
+- **Group names** must be unique within the same instance
+- **Room numbers** must be unique within the same block
+- All resources must belong to the same instance
+
+## Error Handling
+
+If you encounter errors:
+
+1. **400 Bad Request** - Check required fields and data types
+2. **409 Conflict** - Duplicate name/number (e.g., room number already exists)
+3. **404 Not Found** - Parent resource doesn't exist (e.g., block_id not found)
+4. **422 Validation Error** - Invalid relationships (e.g., subgroup doesn't belong to supergroup)
+
+## Next Steps
+
+- Update participants as needed
+- Assign participants to instances
+- Query and filter participants
+- Manage groups and locations dynamically
+
