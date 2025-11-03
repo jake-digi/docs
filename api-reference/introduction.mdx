@@ -1,33 +1,83 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "WMS API Introduction"
+description: "REST API for managing participant data in PostgreSQL with tenant isolation"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## 🌐 Base URL
 
-## Welcome
+**Production API:** `https://api.checkpoint.b-digital.uk`
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+All endpoints are prefixed with `/api/v1`
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+## 🔐 Authentication
 
-## Authentication
+The API supports two authentication methods:
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+### API Key Authentication (Recommended)
+
+Include your API key in every request using the `X-API-Key` header:
+
+```bash
+X-API-Key: your-api-key-here
+```
+
+<Info>
+  API keys allow admins to access the API without Firebase. Generate your API key using the [API Keys guide](/essentials/api-keys).
+</Info>
+
+### Firebase Token Authentication
+
+Include your Firebase ID token in the `Authorization` header:
+
+```bash
+Authorization: Bearer YOUR_FIREBASE_ID_TOKEN
+```
+
+## 📋 Response Format
+
+All API responses follow a consistent format:
+
+### Success Response
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
+{
+  "success": true,
+  "data": { ... },
+  "meta": { ... }  // For list endpoints
+}
+```
+
+### Error Response
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "ERROR_CODE",
+    "message": "Human readable message",
+    "details": "Additional details (optional)"
   }
-]
+}
+```
+
+## 🔒 Multi-Tenant Isolation
+
+All endpoints automatically scope data to your tenant. You can only access data belonging to your organization.
+
+## 📊 Available Resources
+
+- **Participants** - Manage participant/member data
+- **Instances** - Manage camp/session instances
+- **Groups** - Manage supergroups and subgroups
+- **Blocks & Rooms** - Manage location assignments
+- **API Keys** - Manage authentication keys
+
+## 🚀 Quick Start
+
+1. **Get your API key** - See [API Keys guide](/essentials/api-keys)
+2. **Make your first request** - Use the examples in each endpoint section
+3. **Check the health endpoint** - Verify API is running
+
+```bash
+curl https://api.checkpoint.b-digital.uk/health
 ```

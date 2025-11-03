@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "WMS API Documentation",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -17,52 +17,59 @@
             "group": "Getting started",
             "pages": [
               "index",
-              "quickstart",
-              "development"
+              "quickstart"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Essentials",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "essentials/api-keys",
+              "essentials/validation"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "API Reference",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Introduction",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Participants",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/participants",
+              "api-reference/participants-create",
+              "api-reference/participants-get",
+              "api-reference/participants-update"
+            ]
+          },
+          {
+            "group": "Groups",
+            "pages": [
+              "api-reference/groups-supergroups",
+              "api-reference/groups-supergroups-create",
+              "api-reference/groups-subgroups",
+              "api-reference/groups-subgroups-create"
+            ]
+          },
+          {
+            "group": "Blocks & Rooms",
+            "pages": [
+              "api-reference/blocks",
+              "api-reference/blocks-create",
+              "api-reference/rooms",
+              "api-reference/rooms-create"
+            ]
+          },
+          {
+            "group": "Instances",
+            "pages": [
+              "api-reference/instances",
+              "api-reference/instances-create"
             ]
           }
         ]
@@ -71,14 +78,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "API",
+          "href": "https://api.checkpoint.b-digital.uk",
+          "icon": "cloud"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "GitHub",
+          "href": "https://github.com/jake-digi/wms_api",
+          "icon": "github"
         }
       ]
     }
@@ -91,13 +98,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@b-digital.uk"
       }
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "API Status",
+      "href": "https://api.checkpoint.b-digital.uk/health"
     }
   },
   "contextual": {
@@ -114,9 +121,7 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "github": "https://github.com/jake-digi"
     }
   }
 }

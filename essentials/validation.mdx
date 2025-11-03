@@ -1,0 +1,67 @@
+---
+title: "Validation Rules"
+description: "Comprehensive validation rules for the WMS API"
+---
+
+## ✅ Validation Overview
+
+The API includes comprehensive validation to ensure data integrity and logical relationships.
+
+## 🔗 Relationship Validation
+
+### Groups
+
+- **Subgroup → Supergroup**: When creating or updating a participant with both `super_group_id` and `sub_group_id`, the subgroup must belong to that supergroup
+- **Subgroup Parent**: When updating a subgroup's `parent_supergroup_id`, the new parent must belong to the same instance
+
+### Locations
+
+- **Room → Block**: When creating or updating a participant with both `block_id` and `room_id`, the room must belong to that block
+
+## 📝 Duplicate Prevention
+
+### Supergroups
+- Names must be unique within the same instance
+
+### Subgroups
+- Names must be unique within the same parent supergroup
+
+### Blocks
+- Names must be unique within the same instance
+
+### Rooms
+- Room numbers must be unique within the same block
+
+### Participants
+- `user_id` must be unique within the same instance (one participant per user per instance)
+
+## 🎯 Instance Scoping
+
+All resources must belong to the same instance:
+- Participants assigned to instances
+- Groups belong to instances
+- Blocks and rooms belong to instances
+- All relationships validated within instance boundaries
+
+## 🔒 Tenant Isolation
+
+All data is automatically scoped to your tenant. You can only:
+- Access data belonging to your tenant
+- Create resources within your tenant
+- Update/delete resources you own
+
+## ⚠️ Common Validation Errors
+
+### `VALIDATION_ERROR`
+- Missing required fields
+- Invalid relationships (subgroup doesn't belong to supergroup)
+- Invalid foreign key references
+
+### `DUPLICATE`
+- Duplicate names within same scope
+- Duplicate participant (same user_id + instance_id)
+
+### `FORBIDDEN`
+- Accessing resources from another tenant
+- Instance not found or access denied
+

@@ -1,0 +1,21 @@
+---
+title: "Supergroups"
+api: "GET /api/v1/groups/supergroups"
+method: "GET"
+---
+
+## List Supergroups
+
+Retrieve all supergroups for your tenant, optionally filtered by instance.
+
+<ParamField query={[
+  { name: 'instance_id', type: 'string', description: 'Filter by instance ID (optional)' }
+]} />
+
+### Example Request
+
+```bash
+curl -X GET https://api.checkpoint.b-digital.uk/api/v1/groups/supergroups?instance_id=se8SajpJDWUwrEmhElLF \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+

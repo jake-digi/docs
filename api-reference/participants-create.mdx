@@ -1,0 +1,72 @@
+---
+title: "Create Participant"
+api: "POST /api/v1/participants"
+method: "POST"
+---
+
+## Create Participant
+
+Create a new participant in the system.
+
+<ParamField body={[
+  { name: 'user_id', type: 'string', required: true, description: 'Unique identifier for the participant' },
+  { name: 'instance_id', type: 'string', required: true, description: 'Instance ID the participant belongs to' },
+  { name: 'first_name', type: 'string', required: true, description: 'Participant first name' },
+  { name: 'surname', type: 'string', required: true, description: 'Participant surname' },
+  { name: 'full_name', type: 'string', description: 'Full name (auto-generated if not provided)' },
+  { name: 'gender', type: 'string', description: 'Gender: Male, Female, Other' },
+  { name: 'date_of_birth', type: 'string', description: 'Date of birth (YYYY-MM-DD)' },
+  { name: 'school_year', type: 'string', description: 'School year' },
+  { name: 'rank', type: 'string', description: 'Participant rank' },
+  { name: 'status', type: 'string', description: 'Status (default: active)' },
+  { name: 'unit_name', type: 'string', description: 'Unit name' },
+  { name: 'school_institute', type: 'string', description: 'School/institute name' },
+  { name: 'arrival_date', type: 'string', description: 'Arrival date (YYYY-MM-DD)' },
+  { name: 'departure_date', type: 'string', description: 'Departure date (YYYY-MM-DD)' },
+  { name: 'super_group_id', type: 'string', description: 'ID of supergroup' },
+  { name: 'sub_group_id', type: 'string', description: 'ID of subgroup (must belong to supergroup if provided)' },
+  { name: 'block_id', type: 'string', description: 'ID of block' },
+  { name: 'room_id', type: 'string', description: 'ID of room (must belong to block if provided)' },
+  { name: 'room_number', type: 'string', description: 'Room number' },
+  { name: 'photo_link', type: 'string', description: 'Link to participant photo' }
+]} />
+
+### Validation Rules
+
+- `user_id` must be unique within the instance
+- If `sub_group_id` is provided with `super_group_id`, the subgroup must belong to that supergroup
+- If `room_id` is provided with `block_id`, the room must belong to that block
+- All group/block/room IDs must belong to the same instance
+
+### Example Request
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/participants \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "user_id": "API_TEST_001",
+    "instance_id": "se8SajpJDWUwrEmhElLF",
+    "first_name": "API",
+    "surname": "TEST",
+    "status": "active"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "API_TEST_001",
+    "user_id": "API_TEST_001",
+    "first_name": "API",
+    "surname": "TEST",
+    "full_name": "API TEST",
+    "status": "active",
+    "created_at": "2025-11-03T21:51:25.515Z"
+  }
+}
+```
+

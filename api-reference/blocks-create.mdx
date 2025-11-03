@@ -1,0 +1,33 @@
+---
+title: "Create Block"
+api: "POST /api/v1/blocks"
+method: "POST"
+---
+
+## Create Block
+
+Create a new block. Block names must be unique within the same instance.
+
+<ParamField body={[
+  { name: 'name', type: 'string', required: true, description: 'Block name' },
+  { name: 'instance_id', type: 'string', required: true, description: 'Instance ID' },
+  { name: 'description', type: 'string', description: 'Block description' }
+]} />
+
+<Warning>
+  Block names must be unique within the same instance. Attempting to create a duplicate will return a 409 Conflict error.
+</Warning>
+
+### Example Request
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/blocks \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Block A",
+    "instance_id": "se8SajpJDWUwrEmhElLF",
+    "description": "Main accommodation block"
+  }'
+```
+

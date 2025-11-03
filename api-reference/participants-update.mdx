@@ -1,0 +1,44 @@
+---
+title: "Update Participant"
+api: "PUT /api/v1/participants/:id"
+method: "PUT"
+---
+
+## Update Participant
+
+Update an existing participant. Only include fields you want to update.
+
+<ParamField path={[
+  { name: 'id', type: 'string', required: true, description: 'Participant ID' }
+]} />
+
+<ParamField body={[
+  { name: 'first_name', type: 'string', description: 'First name' },
+  { name: 'surname', type: 'string', description: 'Surname' },
+  { name: 'gender', type: 'string', description: 'Gender' },
+  { name: 'status', type: 'string', description: 'Status' },
+  { name: 'super_group_id', type: 'string', description: 'Supergroup ID' },
+  { name: 'sub_group_id', type: 'string', description: 'Subgroup ID (must belong to supergroup if provided)' },
+  { name: 'block_id', type: 'string', description: 'Block ID' },
+  { name: 'room_id', type: 'string', description: 'Room ID (must belong to block if provided)' }
+]} />
+
+<Warning>
+  When updating relationships, ensure they are valid:
+  - Subgroup must belong to the supergroup (if both provided)
+  - Room must belong to the block (if both provided)
+</Warning>
+
+### Example Request
+
+```bash
+curl -X PUT https://api.checkpoint.b-digital.uk/api/v1/participants/API_TEST_001 \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "John",
+    "surname": "Smith",
+    "rank": "Senior"
+  }'
+```
+

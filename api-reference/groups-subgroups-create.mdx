@@ -1,0 +1,39 @@
+---
+title: "Create Subgroup"
+api: "POST /api/v1/groups/subgroups"
+method: "POST"
+---
+
+## Create Subgroup
+
+Create a new subgroup. The subgroup must belong to a parent supergroup, and the name must be unique within that parent supergroup.
+
+<ParamField body={[
+  { name: 'name', type: 'string', required: true, description: 'Subgroup name' },
+  { name: 'instance_id', type: 'string', required: true, description: 'Instance ID' },
+  { name: 'parent_supergroup_id', type: 'string', required: true, description: 'Parent supergroup ID' },
+  { name: 'description', type: 'string', description: 'Subgroup description' },
+  { name: 'type', type: 'string', description: 'Type (default: subgroup)' },
+  { name: 'purpose', type: 'string', description: 'Purpose' },
+  { name: 'notifications', type: 'boolean', description: 'Enable notifications (default: true)' }
+]} />
+
+<Warning>
+  - Subgroup names must be unique within the same parent supergroup
+  - Parent supergroup must exist and belong to the same instance
+</Warning>
+
+### Example Request
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/groups/subgroups \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Dragon",
+    "instance_id": "se8SajpJDWUwrEmhElLF",
+    "parent_supergroup_id": "supergroup123",
+    "description": "Dragon subgroup"
+  }'
+```
+

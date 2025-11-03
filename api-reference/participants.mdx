@@ -1,0 +1,62 @@
+---
+title: "Participants"
+api: "GET /api/v1/participants"
+method: "GET"
+---
+
+## List Participants
+
+Retrieve a list of participants, optionally filtered by instance or status.
+
+<ParamField body={[
+  { name: 'instance_id', type: 'string', description: 'Filter by instance ID (optional)' },
+  { name: 'status', type: 'string', description: 'Filter by status: active, inactive (optional)' },
+  { name: 'limit', type: 'number', description: 'Number of results per page (default: 50)' },
+  { name: 'offset', type: 'number', description: 'Number of results to skip (default: 0)' }
+]} />
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful
+</ResponseField>
+<ResponseField name="data" type="array">
+  Array of participant objects
+</ResponseField>
+<ResponseField name="meta" type="object">
+  Pagination metadata (total, limit, offset)
+</ResponseField>
+
+### Example Request
+
+```bash
+curl -X GET https://api.checkpoint.b-digital.uk/api/v1/participants \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
+### Example Response
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "20527",
+      "user_id": "20527",
+      "first_name": "Ella",
+      "surname": "Lassman",
+      "full_name": "Ella Lassman",
+      "status": "active",
+      "instance_id": "se8SajpJDWUwrEmhElLF",
+      "supergroup_name": "Junior Camp",
+      "subgroup_name": "Dragon",
+      "block_name": "Block A",
+      "room_number": "9"
+    }
+  ],
+  "meta": {
+    "total": 150,
+    "limit": 50,
+    "offset": 0
+  }
+}
+```
+

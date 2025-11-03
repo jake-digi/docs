@@ -1,0 +1,22 @@
+---
+title: "Rooms"
+api: "GET /api/v1/rooms"
+method: "GET"
+---
+
+## List Rooms
+
+Retrieve all rooms for your tenant, optionally filtered by instance or block.
+
+<ParamField query={[
+  { name: 'instance_id', type: 'string', description: 'Filter by instance ID (optional)' },
+  { name: 'block_id', type: 'string', description: 'Filter by block ID (optional)' }
+]} />
+
+### Example Request
+
+```bash
+curl -X GET 'https://api.checkpoint.b-digital.uk/api/v1/rooms?instance_id=se8SajpJDWUwrEmhElLF&block_id=block123' \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+

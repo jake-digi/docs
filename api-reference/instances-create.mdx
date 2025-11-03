@@ -1,0 +1,34 @@
+---
+title: "Create Instance"
+api: "POST /api/v1/instances"
+method: "POST"
+---
+
+## Create Instance
+
+Create a new camp/session instance.
+
+<ParamField body={[
+  { name: 'name', type: 'string', required: true, description: 'Instance name' },
+  { name: 'description', type: 'string', description: 'Instance description' },
+  { name: 'status', type: 'string', description: 'Status: upcoming, active, completed, archived (default: upcoming)' },
+  { name: 'start_date', type: 'string', description: 'Start date (YYYY-MM-DD)' },
+  { name: 'end_date', type: 'string', description: 'End date (YYYY-MM-DD)' },
+  { name: 'location', type: 'string', description: 'Location' }
+]} />
+
+### Example Request
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/instances \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Summer Camp 2025",
+    "description": "Annual summer camp",
+    "status": "upcoming",
+    "start_date": "2025-07-01",
+    "end_date": "2025-07-15"
+  }'
+```
+

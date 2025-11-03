@@ -1,0 +1,21 @@
+---
+title: "Blocks"
+api: "GET /api/v1/blocks"
+method: "GET"
+---
+
+## List Blocks
+
+Retrieve all blocks for your tenant, optionally filtered by instance.
+
+<ParamField query={[
+  { name: 'instance_id', type: 'string', description: 'Filter by instance ID (optional)' }
+]} />
+
+### Example Request
+
+```bash
+curl -X GET https://api.checkpoint.b-digital.uk/api/v1/blocks?instance_id=se8SajpJDWUwrEmhElLF \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
