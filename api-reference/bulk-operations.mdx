@@ -1,0 +1,346 @@
+---
+title: "Bulk Operations"
+description: "How to create and manage multiple resources at once"
+---
+
+## Bulk Operations Overview
+
+The API supports bulk operations for creating and managing multiple resources efficiently.
+
+## Currently Supported Bulk Operations
+
+### 1. Bulk Participant Creation
+
+Create multiple participants in a single request by sending an array instead of a single object.
+
+**Endpoint:** `POST /api/v1/participants`
+
+**Request Body:** Array of participant objects (max 100 per request)
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/participants \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '[
+    {
+      "user_id": "PARTICIPANT_001",
+      "instance_id": "instance_id_123",
+      "first_name": "John",
+      "surname": "Smith",
+      "status": "active"
+    },
+    {
+      "user_id": "PARTICIPANT_002",
+      "instance_id": "instance_id_123",
+      "first_name": "Jane",
+      "surname": "Doe",
+      "status": "active"
+    },
+    {
+      "user_id": "PARTICIPANT_003",
+      "instance_id": "instance_id_123",
+      "first_name": "Bob",
+      "surname": "Johnson",
+      "status": "active"
+    }
+  ]'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "total": 3,
+    "created": 3,
+    "failed": 0,
+    "skipped": 0,
+    "results": {
+      "created": [
+        {
+          "index": 0,
+          "participant": { "id": "PARTICIPANT_001", ... }
+        },
+        {
+          "index": 1,
+          "participant": { "id": "PARTICIPANT_002", ... }
+        },
+        {
+          "index": 2,
+          "participant": { "id": "PARTICIPANT_003", ... }
+        }
+      ],
+      "failed": [],
+      "skipped": []
+    }
+  }
+}
+```
+
+**Features:**
+- Processes up to 100 participants per request
+- Continues processing even if some fail
+- Returns detailed results for each participant
+- Skips duplicates automatically
+- Validates relationships for each participant
+
+### 2. Bulk Participant Assignment
+
+Assign multiple participants to an instance at once.
+
+**Endpoint:** `POST /api/v1/instances/:id/assign-participants`
+
+```bash
+curl -X POST https://api.checkpoint.b-digital.uk/api/v1/instances/instance_id_123/assign-participants \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "participant_ids": [
+      "PARTICIPANT_001",
+      "PARTICIPANT_002",
+      "PARTICIPANT_003"
+    ]
+  }'
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "assigned": [
+      { "participant_id": "PARTICIPANT_001", "user_id": "PARTICIPANT_001" },
+      { "participant_id": "PARTICIPANT_002", "user_id": "PARTICIPANT_002" }
+    ],
+    "skipped": [
+      {
+        "participant_id": "PARTICIPANT_003",
+        "user_id": "PARTICIPANT_003",
+        "reason": "Already assigned to this instance"
+      }
+    ]
+  }
+}
+```
+
+## Single Resource Creation
+
+For groups, blocks, and rooms, you currently create them one at a time. However, you can use scripts or loops to create multiple resources efficiently.
+
+### Creating Multiple Supergroups
+
+```bash
+# Using a loop
+for name in "Junior Camp" "Senior Camp" "Leaders"; do
+  curl -X POST https://api.checkpoint.b-digital.uk/api/v1/groups/supergroups \
+    -H "X-API-Key: YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{
+      \"name\": \"$name\",
+      \"instance_id\": \"instance_id_123\"
+    }"
+done
+```
+
+### Creating Multiple Subgroups
+
+```bash
+# Create multiple subgroups for a supergroup
+SUPERGROUP_ID="supergroup_id_456"
+for name in "Dragon" "Eagle" "Lion"; do
+  curl -X POST https://api.checkpoint.b-digital.uk/api/v1/groups/subgroups \
+    -H "X-API-Key: YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{
+      \"name\": \"$name\",
+      \"instance_id\": \"instance_id_123\",
+      \"parent_supergroup_id\": \"$SUPERGROUP_ID\"
+    }"
+done
+```
+
+### Creating Multiple Blocks
+
+```bash
+for name in "Block A" "Block B" "Block C"; do
+  curl -X POST https://api.checkpoint.b-digital.uk/api/v1/blocks \
+    -H "X-API-Key: YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{
+      \"name\": \"$name\",
+      \"instance_id\": \"instance_id_123\"
+    }"
+done
+```
+
+### Creating Multiple Rooms
+
+```bash
+BLOCK_ID="block_id_101"
+for room_num in 101 102 103 104 105; do
+  curl -X POST https://api.checkpoint.b-digital.uk/api/v1/rooms \
+    -H "X-API-Key: YOUR_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d "{
+      \"room_number\": \"$room_num\",
+      \"block_id\": \"$BLOCK_ID\",
+      \"instance_id\": \"instance_id_123\",
+      \"capacity\": 4
+    }"
+done
+```
+
+## JavaScript Example: Bulk Creation
+
+```javascript
+const API_KEY = 'YOUR_API_KEY';
+const API_URL = 'https://api.checkpoint.b-digital.uk';
+const instanceId = 'instance_id_123';
+
+// Create multiple supergroups
+const supergroups = ['Junior Camp', 'Senior Camp', 'Leaders'];
+const supergroupIds = [];
+
+for (const name of supergroups) {
+  const response = await fetch(`${API_URL}/api/v1/groups/supergroups`, {
+    method: 'POST',
+    headers: {
+      'X-API-Key': API_KEY,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name,
+      instance_id: instanceId
+    })
+  });
+  
+  const result = await response.json();
+  if (result.success) {
+    supergroupIds.push(result.data.id);
+    console.log(`Created supergroup: ${name} (${result.data.id})`);
+  }
+}
+
+// Create multiple participants
+const participants = [
+  { user_id: 'P001', first_name: 'John', surname: 'Smith', instance_id: instanceId },
+  { user_id: 'P002', first_name: 'Jane', surname: 'Doe', instance_id: instanceId },
+  { user_id: 'P003', first_name: 'Bob', surname: 'Johnson', instance_id: instanceId }
+];
+
+const bulkResponse = await fetch(`${API_URL}/api/v1/participants`, {
+  method: 'POST',
+  headers: {
+    'X-API-Key': API_KEY,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(participants)
+});
+
+const bulkResult = await bulkResponse.json();
+console.log(`Created ${bulkResult.data.created} participants`);
+console.log(`Failed: ${bulkResult.data.failed}`);
+console.log(`Skipped: ${bulkResult.data.skipped}`);
+```
+
+## Python Example: Bulk Creation
+
+```python
+import requests
+
+API_KEY = 'YOUR_API_KEY'
+API_URL = 'https://api.checkpoint.b-digital.uk'
+instance_id = 'instance_id_123'
+
+headers = {
+    'X-API-Key': API_KEY,
+    'Content-Type': 'application/json'
+}
+
+# Create multiple supergroups
+supergroups = ['Junior Camp', 'Senior Camp', 'Leaders']
+supergroup_ids = []
+
+for name in supergroups:
+    response = requests.post(
+        f'{API_URL}/api/v1/groups/supergroups',
+        headers=headers,
+        json={'name': name, 'instance_id': instance_id}
+    )
+    if response.json()['success']:
+        supergroup_ids.append(response.json()['data']['id'])
+
+# Bulk create participants
+participants = [
+    {'user_id': 'P001', 'first_name': 'John', 'surname': 'Smith', 'instance_id': instance_id},
+    {'user_id': 'P002', 'first_name': 'Jane', 'surname': 'Doe', 'instance_id': instance_id},
+    {'user_id': 'P003', 'first_name': 'Bob', 'surname': 'Johnson', 'instance_id': instance_id}
+]
+
+response = requests.post(
+    f'{API_URL}/api/v1/participants',
+    headers=headers,
+    json=participants
+)
+
+result = response.json()
+print(f"Created: {result['data']['created']}")
+print(f"Failed: {result['data']['failed']}")
+print(f"Skipped: {result['data']['skipped']}")
+```
+
+## Error Handling in Bulk Operations
+
+Bulk operations are designed to be resilient:
+
+- **Individual failures don't stop the process** - If one participant fails validation, others still get created
+- **Detailed error reporting** - Each failed item includes the index and error message
+- **Duplicate detection** - Duplicates are automatically skipped and reported
+- **Relationship validation** - Each item is validated independently
+
+**Example error response:**
+```json
+{
+  "success": true,
+  "data": {
+    "total": 5,
+    "created": 3,
+    "failed": 1,
+    "skipped": 1,
+    "results": {
+      "created": [/* successful items */],
+      "failed": [
+        {
+          "index": 2,
+          "user_id": "PARTICIPANT_003",
+          "error": "Missing required fields: instance_id"
+        }
+      ],
+      "skipped": [
+        {
+          "index": 4,
+          "user_id": "PARTICIPANT_005",
+          "participant_id": "existing_id",
+          "reason": "Already exists in this instance"
+        }
+      ]
+    }
+  }
+}
+```
+
+## Limits and Best Practices
+
+- **Maximum bulk size:** 100 participants per request
+- **Rate limiting:** Be mindful of API rate limits when making many requests
+- **Transaction safety:** Each item in bulk operations is processed independently
+- **Error recovery:** Check the `failed` array and retry those items individually if needed
+
+## Summary
+
+- **Participants:** ✅ Bulk creation supported (send array)
+- **Participants:** ✅ Bulk assignment to instances supported
+- **Groups/Blocks/Rooms:** ⚠️ Single creation (use loops/scripts for multiple)
+
+For the best experience, use bulk participant creation when uploading many participants at once!
+
