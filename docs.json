@@ -37,9 +37,12 @@
             "group": "Introduction",
             "pages": [
               "api-reference/introduction",
-              "api-reference/playground",
               "api-reference/health"
             ]
+          },
+          {
+            "group": "API Playground",
+            "openapi": "api-reference/openapi.json"
           },
           {
             "group": "Participants",
@@ -126,6 +129,12 @@
   "footer": {
     "socials": {
       "github": "https://github.com/jake-digi"
+    }
+  },
+  "api": {
+    "playground": {
+      "display": "interactive",
+      "proxy": true
     }
   }
 }
