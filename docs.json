@@ -128,9 +128,4 @@
       "github": "https://github.com/jake-digi"
     }
   },
-  "api": {
-    "playground": {
-      "proxy": true
-    }
-  }
 }
