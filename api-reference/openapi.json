@@ -116,6 +116,11 @@
             "type": "string",
             "enum": ["Male", "Female", "Other"]
           },
+          "pronouns": {
+            "type": "string",
+            "example": "they/them",
+            "description": "User's preferred pronouns (e.g., he/him, she/her, they/them)"
+          },
           "status": {
             "type": "string",
             "enum": ["active", "inactive"]
@@ -980,6 +985,209 @@
         "responses": {
           "201": {
             "description": "Room created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/photos/user/{userId}": {
+      "post": {
+        "tags": ["Photos"],
+        "summary": "Upload User Profile Photo",
+        "security": [
+          {
+            "apiKey": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Upload or update a user's profile photo",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["photo"],
+                "properties": {
+                  "photo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image file (JPEG, PNG, GIF, WebP). Max 5MB."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Photo uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Photos"],
+        "summary": "Delete User Profile Photo",
+        "security": [
+          {
+            "apiKey": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Delete a user's profile photo",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Photo deleted successfully"
+          }
+        }
+      }
+    },
+    "/api/v1/photos/participant/{participantId}": {
+      "post": {
+        "tags": ["Photos"],
+        "summary": "Upload Participant Photo",
+        "security": [
+          {
+            "apiKey": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Upload or update a participant's photo",
+        "parameters": [
+          {
+            "name": "participantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": ["photo"],
+                "properties": {
+                  "photo": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Image file (JPEG, PNG, GIF, WebP). Max 5MB."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Photo uploaded successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Photos"],
+        "summary": "Delete Participant Photo",
+        "security": [
+          {
+            "apiKey": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Delete a participant's photo",
+        "parameters": [
+          {
+            "name": "participantId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Photo deleted successfully"
+          }
+        }
+      }
+    },
+    "/api/v1/photos/user/{userId}/history": {
+      "get": {
+        "tags": ["Photos"],
+        "summary": "Get User Photo History",
+        "security": [
+          {
+            "apiKey": []
+          },
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Retrieve the history of profile photo changes for a user",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Photo history retrieved successfully",
             "content": {
               "application/json": {
                 "schema": {
