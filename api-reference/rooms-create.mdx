@@ -8,13 +8,25 @@ method: "POST"
 
 Create a new room within a block. Room numbers must be unique within the same block.
 
-<ParamField body={[
-  { name: 'room_number', type: 'string', required: true, description: 'Room number' },
-  { name: 'block_id', type: 'string', required: true, description: 'Block ID the room belongs to' },
-  { name: 'instance_id', type: 'string', required: true, description: 'Instance ID' },
-  { name: 'name', type: 'string', description: 'Room name' },
-  { name: 'capacity', type: 'number', description: 'Room capacity' }
-]} />
+<ParamField body="room_number" type="string" required>
+  Room number
+</ParamField>
+
+<ParamField body="block_id" type="string" required>
+  Block ID the room belongs to
+</ParamField>
+
+<ParamField body="instance_id" type="string" required>
+  Instance ID
+</ParamField>
+
+<ParamField body="name" type="string">
+  Room name
+</ParamField>
+
+<ParamField body="capacity" type="number">
+  Room capacity
+</ParamField>
 
 <Warning>
   - Room numbers must be unique within the same block
@@ -35,4 +47,3 @@ curl -X POST https://api.checkpoint.b-digital.uk/api/v1/rooms \
     "capacity": 4
   }'
 ```
-

@@ -8,20 +8,41 @@ method: "PUT"
 
 Update an existing participant. Only include fields you want to update.
 
-<ParamField path={[
-  { name: 'id', type: 'string', required: true, description: 'Participant ID' }
-]} />
+<ParamField path="id" type="string" required>
+  Participant ID
+</ParamField>
 
-<ParamField body={[
-  { name: 'first_name', type: 'string', description: 'First name' },
-  { name: 'surname', type: 'string', description: 'Surname' },
-  { name: 'gender', type: 'string', description: 'Gender' },
-  { name: 'status', type: 'string', description: 'Status' },
-  { name: 'super_group_id', type: 'string', description: 'Supergroup ID' },
-  { name: 'sub_group_id', type: 'string', description: 'Subgroup ID (must belong to supergroup if provided)' },
-  { name: 'block_id', type: 'string', description: 'Block ID' },
-  { name: 'room_id', type: 'string', description: 'Room ID (must belong to block if provided)' }
-]} />
+<ParamField body="first_name" type="string">
+  First name
+</ParamField>
+
+<ParamField body="surname" type="string">
+  Surname
+</ParamField>
+
+<ParamField body="gender" type="string">
+  Gender
+</ParamField>
+
+<ParamField body="status" type="string">
+  Status
+</ParamField>
+
+<ParamField body="super_group_id" type="string">
+  Supergroup ID
+</ParamField>
+
+<ParamField body="sub_group_id" type="string">
+  Subgroup ID (must belong to supergroup if provided)
+</ParamField>
+
+<ParamField body="block_id" type="string">
+  Block ID
+</ParamField>
+
+<ParamField body="room_id" type="string">
+  Room ID (must belong to block if provided)
+</ParamField>
 
 <Warning>
   When updating relationships, ensure they are valid:
@@ -41,4 +62,3 @@ curl -X PUT https://api.checkpoint.b-digital.uk/api/v1/participants/API_TEST_001
     "rank": "Senior"
   }'
 ```
-

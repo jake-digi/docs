@@ -8,13 +8,14 @@ method: "GET"
 
 Retrieve details for a specific participant by ID.
 
-<ParamField path={[
-  { name: 'id', type: 'string', required: true, description: 'Participant ID' }
-]} />
+<ParamField path="id" type="string" required>
+  Participant ID
+</ParamField>
 
 <ResponseField name="success" type="boolean">
   Indicates if the request was successful
 </ResponseField>
+
 <ResponseField name="data" type="object">
   Participant object with computed fields (supergroup_name, subgroup_name, block_name, room_name)
 </ResponseField>
@@ -43,4 +44,3 @@ curl -X GET https://api.checkpoint.b-digital.uk/api/v1/participants/API_TEST_001
   }
 }
 ```
-

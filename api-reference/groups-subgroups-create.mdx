@@ -8,15 +8,33 @@ method: "POST"
 
 Create a new subgroup. The subgroup must belong to a parent supergroup, and the name must be unique within that parent supergroup.
 
-<ParamField body={[
-  { name: 'name', type: 'string', required: true, description: 'Subgroup name' },
-  { name: 'instance_id', type: 'string', required: true, description: 'Instance ID' },
-  { name: 'parent_supergroup_id', type: 'string', required: true, description: 'Parent supergroup ID' },
-  { name: 'description', type: 'string', description: 'Subgroup description' },
-  { name: 'type', type: 'string', description: 'Type (default: subgroup)' },
-  { name: 'purpose', type: 'string', description: 'Purpose' },
-  { name: 'notifications', type: 'boolean', description: 'Enable notifications (default: true)' }
-]} />
+<ParamField body="name" type="string" required>
+  Subgroup name
+</ParamField>
+
+<ParamField body="instance_id" type="string" required>
+  Instance ID
+</ParamField>
+
+<ParamField body="parent_supergroup_id" type="string" required>
+  Parent supergroup ID
+</ParamField>
+
+<ParamField body="description" type="string">
+  Subgroup description
+</ParamField>
+
+<ParamField body="type" type="string">
+  Type (default: subgroup)
+</ParamField>
+
+<ParamField body="purpose" type="string">
+  Purpose
+</ParamField>
+
+<ParamField body="notifications" type="boolean">
+  Enable notifications (default: true)
+</ParamField>
 
 <Warning>
   - Subgroup names must be unique within the same parent supergroup
@@ -36,4 +54,3 @@ curl -X POST https://api.checkpoint.b-digital.uk/api/v1/groups/subgroups \
     "description": "Dragon subgroup"
   }'
 ```
-

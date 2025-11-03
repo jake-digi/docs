@@ -8,10 +8,13 @@ method: "GET"
 
 Retrieve all subgroups, optionally filtered by instance or parent supergroup.
 
-<ParamField query={[
-  { name: 'instance_id', type: 'string', description: 'Filter by instance ID (optional)' },
-  { name: 'parent_supergroup_id', type: 'string', description: 'Filter by parent supergroup ID (optional)' }
-]} />
+<ParamField query="instance_id" type="string">
+  Filter by instance ID (optional)
+</ParamField>
+
+<ParamField query="parent_supergroup_id" type="string">
+  Filter by parent supergroup ID (optional)
+</ParamField>
 
 ### Example Request
 
@@ -19,4 +22,3 @@ Retrieve all subgroups, optionally filtered by instance or parent supergroup.
 curl -X GET 'https://api.checkpoint.b-digital.uk/api/v1/groups/subgroups?instance_id=se8SajpJDWUwrEmhElLF&parent_supergroup_id=supergroup123' \
   -H "X-API-Key: YOUR_API_KEY"
 ```
-

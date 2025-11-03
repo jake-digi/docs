@@ -8,19 +8,30 @@ method: "GET"
 
 Retrieve a list of participants, optionally filtered by instance or status.
 
-<ParamField body={[
-  { name: 'instance_id', type: 'string', description: 'Filter by instance ID (optional)' },
-  { name: 'status', type: 'string', description: 'Filter by status: active, inactive (optional)' },
-  { name: 'limit', type: 'number', description: 'Number of results per page (default: 50)' },
-  { name: 'offset', type: 'number', description: 'Number of results to skip (default: 0)' }
-]} />
+<ParamField query="instance_id" type="string">
+  Filter by instance ID (optional)
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filter by status: active, inactive (optional)
+</ParamField>
+
+<ParamField query="limit" type="number">
+  Number of results per page (default: 50)
+</ParamField>
+
+<ParamField query="offset" type="number">
+  Number of results to skip (default: 0)
+</ParamField>
 
 <ResponseField name="success" type="boolean">
   Indicates if the request was successful
 </ResponseField>
+
 <ResponseField name="data" type="array">
   Array of participant objects
 </ResponseField>
+
 <ResponseField name="meta" type="object">
   Pagination metadata (total, limit, offset)
 </ResponseField>
@@ -59,4 +70,3 @@ curl -X GET https://api.checkpoint.b-digital.uk/api/v1/participants \
   }
 }
 ```
-

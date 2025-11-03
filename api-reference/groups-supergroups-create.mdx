@@ -8,14 +8,29 @@ method: "POST"
 
 Create a new supergroup. The name must be unique within the instance.
 
-<ParamField body={[
-  { name: 'name', type: 'string', required: true, description: 'Supergroup name' },
-  { name: 'instance_id', type: 'string', required: true, description: 'Instance ID' },
-  { name: 'description', type: 'string', description: 'Supergroup description' },
-  { name: 'type', type: 'string', description: 'Type (default: supergroup)' },
-  { name: 'purpose', type: 'string', description: 'Purpose' },
-  { name: 'notifications', type: 'boolean', description: 'Enable notifications (default: true)' }
-]} />
+<ParamField body="name" type="string" required>
+  Supergroup name
+</ParamField>
+
+<ParamField body="instance_id" type="string" required>
+  Instance ID
+</ParamField>
+
+<ParamField body="description" type="string">
+  Supergroup description
+</ParamField>
+
+<ParamField body="type" type="string">
+  Type (default: supergroup)
+</ParamField>
+
+<ParamField body="purpose" type="string">
+  Purpose
+</ParamField>
+
+<ParamField body="notifications" type="boolean">
+  Enable notifications (default: true)
+</ParamField>
 
 <Warning>
   Supergroup names must be unique within the same instance. Attempting to create a duplicate will return a 409 Conflict error.
@@ -33,4 +48,3 @@ curl -X POST https://api.checkpoint.b-digital.uk/api/v1/groups/supergroups \
     "description": "Senior campers group"
   }'
 ```
-

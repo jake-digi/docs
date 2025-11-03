@@ -8,14 +8,29 @@ method: "POST"
 
 Create a new camp/session instance.
 
-<ParamField body={[
-  { name: 'name', type: 'string', required: true, description: 'Instance name' },
-  { name: 'description', type: 'string', description: 'Instance description' },
-  { name: 'status', type: 'string', description: 'Status: upcoming, active, completed, archived (default: upcoming)' },
-  { name: 'start_date', type: 'string', description: 'Start date (YYYY-MM-DD)' },
-  { name: 'end_date', type: 'string', description: 'End date (YYYY-MM-DD)' },
-  { name: 'location', type: 'string', description: 'Location' }
-]} />
+<ParamField body="name" type="string" required>
+  Instance name
+</ParamField>
+
+<ParamField body="description" type="string">
+  Instance description
+</ParamField>
+
+<ParamField body="status" type="string">
+  Status: upcoming, active, completed, archived (default: upcoming)
+</ParamField>
+
+<ParamField body="start_date" type="string">
+  Start date (YYYY-MM-DD)
+</ParamField>
+
+<ParamField body="end_date" type="string">
+  End date (YYYY-MM-DD)
+</ParamField>
+
+<ParamField body="location" type="string">
+  Location
+</ParamField>
 
 ### Example Request
 
@@ -31,4 +46,3 @@ curl -X POST https://api.checkpoint.b-digital.uk/api/v1/instances \
     "end_date": "2025-07-15"
   }'
 ```
-

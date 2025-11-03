@@ -8,11 +8,17 @@ method: "POST"
 
 Create a new block. Block names must be unique within the same instance.
 
-<ParamField body={[
-  { name: 'name', type: 'string', required: true, description: 'Block name' },
-  { name: 'instance_id', type: 'string', required: true, description: 'Instance ID' },
-  { name: 'description', type: 'string', description: 'Block description' }
-]} />
+<ParamField body="name" type="string" required>
+  Block name
+</ParamField>
+
+<ParamField body="instance_id" type="string" required>
+  Instance ID
+</ParamField>
+
+<ParamField body="description" type="string">
+  Block description
+</ParamField>
 
 <Warning>
   Block names must be unique within the same instance. Attempting to create a duplicate will return a 409 Conflict error.
@@ -30,4 +36,3 @@ curl -X POST https://api.checkpoint.b-digital.uk/api/v1/blocks \
     "description": "Main accommodation block"
   }'
 ```
-
