@@ -8,9 +8,9 @@ method: "DELETE"
 
 Soft delete a participant (sets `deleted_at` timestamp).
 
-<ParamField path={[
-  { name: 'id', type: 'string', required: true, description: 'Participant ID' }
-]} />
+<ParamField path="id" type="string" required>
+  Participant ID
+</ParamField>
 
 <Info>
   This is a soft delete. The participant record remains in the database but is marked as deleted. It will not appear in list queries.
@@ -31,4 +31,3 @@ curl -X DELETE https://api.checkpoint.b-digital.uk/api/v1/participants/API_TEST_
   "message": "Participant deleted successfully"
 }
 ```
-
