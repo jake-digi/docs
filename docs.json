@@ -24,7 +24,8 @@
             "group": "Essentials",
             "pages": [
               "essentials/api-keys",
-              "essentials/validation"
+              "essentials/validation",
+              "essentials/password-protection"
             ]
           }
         ]
