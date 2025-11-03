@@ -134,7 +134,8 @@
   "api": {
     "playground": {
       "display": "interactive",
-      "proxy": false
-    }
+      "proxy": true
+    },
+    "baseUrl": "https://api.checkpoint.b-digital.uk"
   }
 }
