@@ -1,7 +1,7 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "WMS API",
+    "title": "Checkpoint API",
     "description": "REST API for managing participant data in PostgreSQL with tenant isolation",
     "version": "1.0.0",
     "contact": {
