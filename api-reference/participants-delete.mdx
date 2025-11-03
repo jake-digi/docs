@@ -1,0 +1,34 @@
+---
+title: "Delete Participant"
+api: "DELETE /api/v1/participants/:id"
+method: "DELETE"
+---
+
+## Delete Participant
+
+Soft delete a participant (sets `deleted_at` timestamp).
+
+<ParamField path={[
+  { name: 'id', type: 'string', required: true, description: 'Participant ID' }
+]} />
+
+<Info>
+  This is a soft delete. The participant record remains in the database but is marked as deleted. It will not appear in list queries.
+</Info>
+
+### Example Request
+
+```bash
+curl -X DELETE https://api.checkpoint.b-digital.uk/api/v1/participants/API_TEST_001 \
+  -H "X-API-Key: YOUR_API_KEY"
+```
+
+### Example Response
+
+```json
+{
+  "success": true,
+  "message": "Participant deleted successfully"
+}
+```
+

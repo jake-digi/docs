@@ -35,7 +35,8 @@
           {
             "group": "Introduction",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/health"
             ]
           },
           {
@@ -44,7 +45,8 @@
               "api-reference/participants",
               "api-reference/participants-create",
               "api-reference/participants-get",
-              "api-reference/participants-update"
+              "api-reference/participants-update",
+              "api-reference/participants-delete"
             ]
           },
           {

@@ -1,0 +1,27 @@
+---
+title: "Health Check"
+api: "GET /health"
+method: "GET"
+---
+
+## Health Check
+
+Check if the API is running and database is connected. This endpoint does not require authentication.
+
+### Example Request
+
+```bash
+curl https://api.checkpoint.b-digital.uk/health
+```
+
+### Example Response
+
+```json
+{
+  "success": true,
+  "message": "PostgreSQL API is running",
+  "timestamp": "2025-11-03T21:58:28.728Z",
+  "database": "connected"
+}
+```
+
