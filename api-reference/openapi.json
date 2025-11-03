@@ -12,7 +12,8 @@
   "servers": [
     {
       "url": "https://api.checkpoint.b-digital.uk",
-      "description": "Production API"
+      "description": "Production API",
+      "variables": {}
     }
   ],
   "security": [
