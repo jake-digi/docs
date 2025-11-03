@@ -130,10 +130,7 @@
   },
   "api": {
     "playground": {
-      "proxy": {
-        "target": "https://api.checkpoint.b-digital.uk",
-        "secure": true
-      }
+      "proxy": true
     }
   }
 }
