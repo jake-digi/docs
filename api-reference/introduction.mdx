@@ -3,13 +3,13 @@ title: "WMS API Introduction"
 description: "REST API for managing participant data in PostgreSQL with tenant isolation"
 ---
 
-## 🌐 Base URL
+## Base URL
 
 **Production API:** `https://api.checkpoint.b-digital.uk`
 
 All endpoints are prefixed with `/api/v1`
 
-## 🔐 Authentication
+## Authentication
 
 The API supports two authentication methods:
 
@@ -33,7 +33,7 @@ Include your Firebase ID token in the `Authorization` header:
 Authorization: Bearer YOUR_FIREBASE_ID_TOKEN
 ```
 
-## 📋 Response Format
+## Response Format
 
 All API responses follow a consistent format:
 
@@ -60,11 +60,11 @@ All API responses follow a consistent format:
 }
 ```
 
-## 🔒 Multi-Tenant Isolation
+## Multi-Tenant Isolation
 
 All endpoints automatically scope data to your tenant. You can only access data belonging to your organization.
 
-## 📊 Available Resources
+## Available Resources
 
 - **Participants** - Manage participant/member data
 - **Instances** - Manage camp/session instances
@@ -72,12 +72,16 @@ All endpoints automatically scope data to your tenant. You can only access data 
 - **Blocks & Rooms** - Manage location assignments
 - **API Keys** - Manage authentication keys
 
-## 🚀 Quick Start
+## Quick Start
 
 1. **Get your API key** - See [API Keys guide](/essentials/api-keys)
-2. **Make your first request** - Use the examples in each endpoint section
+2. **Make your first request** - Use the examples in each endpoint section or the API playground below
 3. **Check the health endpoint** - Verify API is running
 
 ```bash
 curl https://api.checkpoint.b-digital.uk/health
 ```
+
+## Interactive API Playground
+
+Use the interactive API playground below to test endpoints directly from the documentation. The playground supports both API key and Firebase token authentication.

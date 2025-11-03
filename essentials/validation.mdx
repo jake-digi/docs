@@ -3,11 +3,11 @@ title: "Validation Rules"
 description: "Comprehensive validation rules for the WMS API"
 ---
 
-## ✅ Validation Overview
+## Validation Overview
 
 The API includes comprehensive validation to ensure data integrity and logical relationships.
 
-## 🔗 Relationship Validation
+## Relationship Validation
 
 ### Groups
 
@@ -18,7 +18,7 @@ The API includes comprehensive validation to ensure data integrity and logical r
 
 - **Room → Block**: When creating or updating a participant with both `block_id` and `room_id`, the room must belong to that block
 
-## 📝 Duplicate Prevention
+## Duplicate Prevention
 
 ### Supergroups
 - Names must be unique within the same instance
@@ -35,7 +35,7 @@ The API includes comprehensive validation to ensure data integrity and logical r
 ### Participants
 - `user_id` must be unique within the same instance (one participant per user per instance)
 
-## 🎯 Instance Scoping
+## Instance Scoping
 
 All resources must belong to the same instance:
 - Participants assigned to instances
@@ -43,14 +43,14 @@ All resources must belong to the same instance:
 - Blocks and rooms belong to instances
 - All relationships validated within instance boundaries
 
-## 🔒 Tenant Isolation
+## Tenant Isolation
 
 All data is automatically scoped to your tenant. You can only:
 - Access data belonging to your tenant
 - Create resources within your tenant
 - Update/delete resources you own
 
-## ⚠️ Common Validation Errors
+## Common Validation Errors
 
 ### `VALIDATION_ERROR`
 - Missing required fields
@@ -64,4 +64,3 @@ All data is automatically scoped to your tenant. You can only:
 ### `FORBIDDEN`
 - Accessing resources from another tenant
 - Instance not found or access denied
-

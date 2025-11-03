@@ -36,6 +36,7 @@
             "group": "Introduction",
             "pages": [
               "api-reference/introduction",
+              "api-reference/playground",
               "api-reference/health"
             ]
           },

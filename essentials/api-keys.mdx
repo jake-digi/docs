@@ -3,11 +3,11 @@ title: "API Keys"
 description: "How to generate and manage API keys for the WMS API"
 ---
 
-## 🔑 API Key Authentication
+## API Key Authentication
 
 API keys allow admins to access the API **without Firebase**. Perfect for external integrations, automation, and admin scripts.
 
-## 📋 Generating API Keys
+## Generating API Keys
 
 ### Method 1: Using the Script (Recommended)
 
@@ -32,7 +32,7 @@ curl -X POST https://api.checkpoint.b-digital.uk/api/v1/api-keys/generate \
 node scripts/generate-api-keys-bulk.js --tenant=KettleOrganisation
 ```
 
-## 🔐 Using Your API Key
+## Using Your API Key
 
 Include your API key in every request:
 
@@ -41,7 +41,7 @@ curl -X GET https://api.checkpoint.b-digital.uk/api/v1/participants \
   -H "X-API-Key: YOUR_API_KEY_HERE"
 ```
 
-## 🔧 Managing API Keys
+## Managing API Keys
 
 ### Get Your Current API Key
 
@@ -69,10 +69,9 @@ curl -X DELETE https://api.checkpoint.b-digital.uk/api/v1/api-keys/revoke \
   -H "X-API-Key: YOUR_API_KEY"
 ```
 
-## 🔒 Security Best Practices
+## Security Best Practices
 
 1. **Store keys securely** - Never commit to git
 2. **Use environment variables** - Store in `.env` or Railway variables
 3. **Rotate regularly** - Regenerate keys periodically
 4. **Revoke unused keys** - Delete keys when no longer needed
-
